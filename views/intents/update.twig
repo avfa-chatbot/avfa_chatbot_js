@@ -1,0 +1,116 @@
+{% extends 'layout.twig' %}
+
+{% block sidebar %}
+    <li class="nav-item">
+        <a href="/" class="nav-link">
+            <i class="nav-icon fas fa-home"></i>
+            <p>Home</p>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a href="/accounts" class="nav-link">
+            <i class="nav-icon fas fa-user"></i>
+            <p>Accounts</p>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a href="/intents" class="nav-link active">
+            <i class="nav-icon fa fa-question-circle"></i>
+            <p>Intents</p>
+        </a>
+    </li>
+{% endblock %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item"><a href="/">Home</a></li>
+    <li class="breadcrumb-item"><a href="/intents">Intents</a></li>
+    <li class="breadcrumb-item active">{{title}}</li>
+{% endblock %}
+
+{% block content %}
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <form id="updateIntent" action="/intents/update" method="post">
+                        <div class="card">
+                            <div class="card-body">
+                                <input type="hidden" name="_id" value={{intent._id}}>
+                                <div class="form-group">
+                                    <label for="tag">Tag</label>
+                                    <input type="text" required placeholder="Tag" name="tag" id="tag" class="form-control" value={{intent.tag}}>
+                                </div>
+                                <div class="form-group">
+                                    <label for="patterns">Patterns</label>
+                                    <input type="text" required placeholder="Patterns" name="patterns" id="patterns" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="responses">Responses</label>
+                                    <input type="text" required placeholder="Responses" name="responses" id="responses" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary" title="update intent">Save</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block javascripts %}
+    <!-- REQUIRED SCRIPTS -->
+    <!-- InputMask -->
+    <script src="/js/moment.min.js"></script>
+    <script src="/js/jquery.inputmask.min.js"></script>
+    <!-- bs-custom-file-input -->
+    <script src="/js/bs-custom-file-input.min.js"></script>
+    <!-- jquery-validation -->
+    <script src="/js/jquery.validate.min.js"></script>
+    <script src="/js/additional-methods.min.js"></script>
+    <!-- Page specific script -->
+    <script>
+        $(function() {
+            $('#updateIntent').validate({
+                rules: {
+                    tag: {
+                        required: true,
+                        registration: "#tag"
+                    },
+                    patterns: {
+                        required: true,
+                        firstname: "#patterns"
+                    },
+                    responses: {
+                        required: true,
+                        lastname: "#responses"
+                    }
+                },
+                messages: {
+                    tag: {
+                        required: "Please enter intent's tag"
+                    },
+                    patterns: {
+                        required: "Please enter intent's patterns"
+                    },
+                    responses: {
+                        required: "Please enter intent's responses"
+                    }
+                },
+                errorElement: 'span',
+                errorPlacement: function(error, element) {
+                    error.addClass('invalid-feedback');
+                    element.closest('.form-group').append(error);
+                },
+                highlight: function(element, errorClass, validClass) {
+                    $(element).addClass('is-invalid');
+                },
+                unhighlight: function(element, errorClass, validClass) {
+                    $(element).removeClass('is-invalid');
+                }
+            });
+        });
+    </script>
+{% endblock %}

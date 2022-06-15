@@ -1,0 +1,204 @@
+{% extends 'layout.twig' %}
+
+{% block sidebar %}
+    <li class="nav-item">
+        <a href="/" class="nav-link">
+            <i class="nav-icon fas fa-home"></i>
+            <p>Home</p>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a href="/accounts" class="nav-link active">
+            <i class="nav-icon fas fa-user"></i>
+            <p>Accounts</p>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a href="/intents" class="nav-link">
+            <i class="nav-icon fa fa-question-circle"></i>
+            <p>Intents</p>
+        </a>
+    </li>
+{% endblock %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item"><a href="/">Home</a></li>
+    <li class="breadcrumb-item"><a href="/accounts">Accounts</a></li>
+    <li class="breadcrumb-item active">{{title}}</li>
+{% endblock %}
+
+{% block content %}
+    <section class="content">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">informations</h3>
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="minimize">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <form id='updateAccount' action="/accounts/update" method="post">
+                            <td> <input type="hidden" name="_id" value={{account._id}}> </td>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" required placeholder="Email" name="email" value={{account.email}} id="email" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Username</label>
+                                <input type="text"  required placeholder="Username" name="username" value={{account.username}} id="username" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="role-select">Role</label>
+                                {% if  account.role == "ADMIN" %}
+                                    <select name="role" id="role-select" required class="form-control custom-select">
+                                        <option value="ADMIN" selected>Admin</option>
+                                        <option value="USER">Simple User</option>
+                                    </select>
+                                {% elseif account.role == "USER" %}
+                                    <select name="role" id="role-select" required class="form-control custom-select">
+                                        <option value="ADMIN">Admin</option>
+                                        <option value="USER" selected>Simple User</option>
+                                    </select>
+                                {% endif %}
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary" title="update account informations">Save Changes</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Password</h3>
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="minimize">
+                            <i class="fas fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <form id='updatePassword' action="/accounts/updatePassword" method="post">
+                            <td> <input type="hidden" name="_id" value={{account._id}}> </td>
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input type="password" required placeholder="Password" name="password" id="password" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="rpassword">Reenter Password</label>
+                                <input type="password" required placeholder="Reenter password" name="rpassword" id="rpassword" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary" title="update account password">Change Password</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block javascripts %}
+    <!-- REQUIRED SCRIPTS -->
+    <!-- jquery-validation -->
+    <script src="/js/jquery.validate.min.js"></script>
+    <script src="/js/additional-methods.min.js"></script>
+    <!-- Page specific script -->
+    <script>
+        $(function() {
+            $.validator.addMethod('NotEqualTo', function (value, element, param) {
+                var str1 = value  || '';
+                var str2 = $(param).val() || '';
+                return $.trim(str1) == $.trim(str2);
+            }, 'Reenter password');
+            $.validator.addMethod('alphanumeric', function (value, element) {
+                return this.optional(element) || /^[a-zA-Z0-9][a-zA-Z0-9_]+$/.test(value);
+            }, 'Please set a valid username');
+            $('#updateAccount').validate({
+                rules: {
+                    email: {
+                        required: true,
+                        email: true,
+                    },
+                    username: {
+                        required: true,
+                        minlength: 4,
+                        alphanumeric: "#username"
+                    },
+                    role: "required"
+                },
+                messages: {
+                    email: {
+                        required: "Please enter email address",
+                        email: "Please enter a vaild email address"
+                    },
+                    username: {
+                        required: "Please enter username",
+                        minlength: "Username must be at least 4 characters long"
+                    },
+                    role: "Please select a role"
+                },
+                errorElement: 'span',
+                errorPlacement: function(error, element) {
+                    error.addClass('invalid-feedback');
+                    element.closest('.form-group').append(error);
+                },
+                highlight: function(element, errorClass, validClass) {
+                    $(element).addClass('is-invalid');
+                },
+                unhighlight: function(element, errorClass, validClass) {
+                    $(element).removeClass('is-invalid');
+                }
+            });
+            $('#updatePassword').validate({
+                rules: {
+                    password: {
+                        required: true,
+                        minlength: 8
+                    },
+                    rpassword: {
+                        required: true,
+                        NotEqualTo: "#password"
+                    }
+                },
+                messages: {
+                    password: {
+                        required: "Please provide a password",
+                        minlength: "Password must be at least 8 characters long"
+                    },
+                    rpassword: {
+                        required: "Please reenter password"
+                    }
+                },
+                errorElement: 'span',
+                errorPlacement: function(error, element) {
+                    error.addClass('invalid-feedback');
+                    element.closest('.form-group').append(error);
+                },
+                highlight: function(element, errorClass, validClass) {
+                    $(element).addClass('is-invalid');
+                },
+                unhighlight: function(element, errorClass, validClass) {
+                    $(element).removeClass('is-invalid');
+                }
+            });
+            var msg = '{{msg}}';
+            if(msg != ''){
+                toastr.options = {
+                    "positionClass": "toast-bottom-right"
+                };
+                toastr.success(msg);
+            }
+            if($('#email').val() == "undefined"){
+                toastr.warning("Please set a vaild email address");
+            }
+            window.history.pushState(200, '{{title}}', '/accounts/update/{{account._id}}');
+        });
+    </script>
+{% endblock %}

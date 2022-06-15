@@ -1,1 +1,2 @@
-# avfa_chatbot_js
+# chatbot_avfa
+Projet de challenge à esprit

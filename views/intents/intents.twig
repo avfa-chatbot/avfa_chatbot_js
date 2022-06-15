@@ -1,0 +1,253 @@
+{% extends 'layout.twig' %}
+
+{% block sidebar %}
+    <li class="nav-item">
+        <a href="/" class="nav-link">
+            <i class="nav-icon fas fa-home"></i>
+            <p>Home</p>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a href="/accounts" class="nav-link">
+            <i class="nav-icon fas fa-user"></i>
+            <p>Accounts</p>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a href="/intents" class="nav-link active">
+            <i class="nav-icon fa fa-question-circle"></i>
+            <p>Intents</p>
+        </a>
+    </li>
+{% endblock %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item"><a href="/">Home</a></li>
+    <li class="breadcrumb-item active">{{title}}</li>
+{% endblock %}
+
+{% block content %}
+    <section class="content">
+        <div class="card card-primary collapsed-card">
+            <div class="card-header">
+                <h3 class="card-title">Add new intent</h3>
+                <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="minimize">
+                    <i class="fas fa-plus"></i>
+                </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <form id="addIntent" action="/intents/create" method="post">
+                    <div class="form-group">
+                        <label for="tag">Tag</label>
+                        <input type="text" required placeholder="Tag" name="tag" id="tag" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="patterns">Patterns</label>
+                        <input type="text" required placeholder="Patterns" name="patterns" id="patterns" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="responses">Responses</label>
+                        <input type="text" required placeholder="Responses" name="responses" id="responses" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary" title="save intent">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="card card-primary">
+            <div class="card-header">
+                <h3 class="card-title">List of intents</h3>
+                <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="minimize">
+                    <i class="fas fa-minus"></i>
+                </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <table id="example1" class="table table-bordered table-striped">
+                    <thead>
+                        <th> tag </th>
+                        <th> Patterns </th>
+                        <th> Responses </th>
+                        <th> Created At </th>
+                        <th> Updated At </th>
+                        <th></th>
+                        <th></th>
+                    </thead>
+                    <tbody>
+                        {% for intent in intents %}
+                            <tr>
+                                <td> {{ intent.tag }} </td>
+                                <td>
+                                    <ul>
+                                        {% for i in intent.patterns %}
+                                            <li>{{i}}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </td>
+                                <td>
+                                    <ul>
+                                        {% for i in intent.responses %}
+                                            <li>{{i}}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </td>
+                                <td> {{ intent.createdAt }} </td>
+                                <td> {{ intent.updatedAt }} </td>
+                                <td>
+                                    <form action="/intents/update/{{ intent._id }}" method="get">
+                                        <button class="btn btn-block btn-secondary" type='submit' name='update' value='Update' title="update intent">Update</button>
+                                    </form>
+                                </td>
+                                <td>
+                                    <button class="btn btn-block btn-secondary" type='submit' name='delete' data-toggle="modal" data-target="#modal-{{ intent._id }}" value='Delete' title="delete intent">Delete</button>
+                                </td>
+                            </tr>
+                            <div class="modal fade" id="modal-{{ intent._id }}">
+                                <div class="modal-dialog">
+                                    <div class="modal-content bg-danger">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Delete intent</h4>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" title="close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Intent with tag : '{{ intent.tag }}' will be deleted</p>
+                                        </div>
+                                        <div class="modal-footer justify-content-between">
+                                            <button type="button" class="btn btn-outline-light" data-dismiss="modal" title="close">Close</button>
+                                            <button type="button" class="btn btn-outline-light" onclick="location.href='/intents/delete/{{ intent._id }}';" title="confirm delete">Confirm</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th> Tag </th>
+                            <th> Patterns </th>
+                            <th> Responses </th>
+                            <th> Created At </th>
+                            <th> Updated At </th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block javascripts %}
+    <!-- REQUIRED SCRIPTS -->
+    <!-- InputMask -->
+    <script src="/js/moment.min.js"></script>
+    <script src="/js/jquery.inputmask.min.js"></script>
+    <!-- jquery-validation -->
+    <script src="/js/jquery.validate.min.js"></script>
+    <script src="/js/additional-methods.min.js"></script>
+    <!-- DataTables  & Plugins -->
+    <script src="/js/jquery.dataTables.min.js"></script>
+    <script src="/js/dataTables.bootstrap4.min.js"></script>
+    <script src="/js/dataTables.responsive.min.js"></script>
+    <script src="/js/responsive.bootstrap4.min.js"></script>
+    <script src="/js/dataTables.buttons.min.js"></script>
+    <script src="/js/buttons.bootstrap4.min.js"></script>
+    <script src="/js/jszip.min.js"></script>
+    <script src="/js/pdfmake.min.js"></script>
+    <script src="/js/vfs_fonts.js"></script>
+    <script src="/js/buttons.html5.min.js"></script>
+    <script src="/js/buttons.print.min.js"></script>
+    <script src="/js/buttons.colVis.min.js"></script>
+    <!-- bs-custom-file-input -->
+    <script src="/js/bs-custom-file-input.min.js"></script>
+    <!-- Page specific script -->
+    <script>
+        $(function() {
+            $('#addIntent').validate({
+                rules: {
+                    tag: {
+                        required: true,
+                        registration: "#tag"
+                    },
+                    patterns: {
+                        required: true,
+                        firstname: "#patterns"
+                    },
+                    responses: {
+                        required: true,
+                        lastname: "#responses"
+                    }
+                },
+                messages: {
+                    tag: {
+                        required: "Please enter intent's tag"
+                    },
+                    patterns: {
+                        required: "Please enter intent's patterns"
+                    },
+                    responses: {
+                        required: "Please enter intent's responses"
+                    }
+                },
+                errorElement: 'span',
+                errorPlacement: function(error, element) {
+                    error.addClass('invalid-feedback');
+                    element.closest('.form-group').append(error);
+                },
+                highlight: function(element, errorClass, validClass) {
+                    $(element).addClass('is-invalid');
+                },
+                unhighlight: function(element, errorClass, validClass) {
+                    $(element).removeClass('is-invalid');
+                }
+            });
+            $("#example1").DataTable({
+                "responsive": true,
+                "lengthChange": true,
+                "autoWidth": false,
+                "columnDefs": [
+                    {
+                        "targets": [ 3 ],
+                        "visible": false
+                    },
+                    {
+                        "targets": [ 4 ],
+                        "visible": false
+                    }
+                ],
+                "buttons": ["copy", "csv", "excel", "pdf", "print", {
+                    extend: 'colvis',
+                    columns: ':eq(0),:eq(1),:eq(2),:eq(3),:eq(4)'
+                }]
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+            var msg = '{{msg}}';
+            if(msg != ''){
+                toastr.options = {
+                    "positionClass": "toast-bottom-right"
+                };
+                switch(msg){
+                    case 'Intent created successfully' :
+                        toastr.success(msg);
+                        break;
+                    case 'Intent deleted successfully' :
+                        toastr.success(msg);
+                        break;
+                    case 'Intent updated successfully' :
+                        toastr.success(msg);
+                        break;
+                    case 'Tag already used' :
+                        toastr.error(msg);
+                        break;
+                }
+            }
+            window.history.pushState(200, '{{title}}', '/intents');
+        });
+    </script>
+{% endblock %}

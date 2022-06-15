@@ -1,0 +1,273 @@
+{% extends 'layout.twig' %}
+
+{% block sidebar %}
+    <li class="nav-item">
+        <a href="/" class="nav-link">
+            <i class="nav-icon fas fa-home"></i>
+            <p>Home</p>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a href="/accounts" class="nav-link active">
+            <i class="nav-icon fas fa-user"></i>
+            <p>Accounts</p>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a href="/intents" class="nav-link">
+            <i class="nav-icon fa fa-question-circle"></i>
+            <p>Intents</p>
+        </a>
+    </li>
+{% endblock %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item"><a href="/">Home</a></li>
+    <li class="breadcrumb-item active">{{title}}</li>
+{% endblock %}
+
+{% block content %}
+    <section class="content">
+        <div class="card card-primary collapsed-card">
+            <div class="card-header">
+                <h3 class="card-title">Add new account</h3>
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse" title="minimize">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <form id="addAccount" action="/accounts/create" method="post">
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" required placeholder="Email" name="email" id="email" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Username</label>
+                        <input type="text"  required placeholder="Username" name="username" id="username" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="role-select">Role</label>
+                        <select name="role" id="role-select" required class="form-control custom-select">
+                            <option value="" hidden selected>--Please choose an option--</option>
+                            <option value="ADMIN">Admin</option>
+                            <option value="USER">Simple User</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" required placeholder="Password" name="password" id="password" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="rpassword">Reenter Password</label>
+                        <input type="password" required placeholder="Reenter password" name="rpassword" id="rpassword" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary" title="save account">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="card card-primary">
+            <div class="card-header">
+                <h3 class="card-title">List of accounts</h3>
+                <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="minimize">
+                    <i class="fas fa-minus"></i>
+                </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <table id="example1" class="table table-bordered table-striped">
+                    <thead>
+                        <th> UserName </th>
+                        <th> Role </th>
+                        <th> Email </th>
+                        <th> Created At </th>
+                        <th> Updated At </th>
+                        <th></th>
+                        <th></th>
+                    </thead>
+                    <tbody>
+                        {% for account in accounts %}
+                            <tr>
+                                <td> {{ account.username }} </td>
+                                <td> {{ account.role }} </td>
+                                <td> {{ account.email }} </td>
+                                <td> {{ account.createdAt }} </td>
+                                <td> {{ account.updatedAt }} </td>
+                                <td>
+                                    <form action="/accounts/update/{{ account._id }}" method="get">
+                                        <button class="btn btn-block btn-secondary" type='submit' name='update' value='Update' title="update account">Update</button>
+                                    </form>
+                                </td>
+                                <td>
+                                    <button class="btn btn-block btn-secondary" type='submit' name='delete' data-toggle="modal" data-target="#modal-{{ account._id }}" value='Delete' title="delete account">Delete</button>
+                                </td>
+                            </tr>
+                            <div class="modal fade" id="modal-{{ account._id }}">
+                                <div class="modal-dialog">
+                                    <div class="modal-content bg-danger">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Delete Account</h4>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" title="close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Account '{{ account.username }}' will be deleted</p>
+                                        </div>
+                                        <div class="modal-footer justify-content-between">
+                                            <button type="button" class="btn btn-outline-light" data-dismiss="modal" title="close">Close</button>
+                                            <button type="button" class="btn btn-outline-light" onclick="location.href='/accounts/delete/{{ account._id }}';" title="confirm delete">Confirm</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th> UserName </th>
+                            <th> Role </th>
+                            <th> Email </th>
+                            <th> Created At </th>
+                            <th> Updated At </th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>  
+    </section>
+{% endblock %}
+        
+{% block javascripts %}
+    <!-- REQUIRED SCRIPTS -->
+    <!-- jquery-validation -->
+    <script src="/js/jquery.validate.min.js"></script>
+    <script src="/js/additional-methods.min.js"></script>
+    <!-- DataTables  & Plugins -->
+    <script src="/js/jquery.dataTables.min.js"></script>
+    <script src="/js/dataTables.bootstrap4.min.js"></script>
+    <script src="/js/dataTables.responsive.min.js"></script>
+    <script src="/js/responsive.bootstrap4.min.js"></script>
+    <script src="/js/dataTables.buttons.min.js"></script>
+    <script src="/js/buttons.bootstrap4.min.js"></script>
+    <script src="/js/jszip.min.js"></script>
+    <script src="/js/pdfmake.min.js"></script>
+    <script src="/js/vfs_fonts.js"></script>
+    <script src="/js/buttons.html5.min.js"></script>
+    <script src="/js/buttons.print.min.js"></script>
+    <script src="/js/buttons.colVis.min.js"></script>
+    <!-- Page specific script -->
+    <script>
+        $(function() {
+            $.validator.addMethod('NotEqualTo', function (value, element, param) {
+                var str1 = value  || '';
+                var str2 = $(param).val() || '';
+                return $.trim(str1) == $.trim(str2);
+            }, 'This must be equal to password entered');
+            $.validator.addMethod('alphanumeric', function (value, element) {
+                return this.optional(element) || /^[a-zA-Z0-9][a-zA-Z0-9_]+$/.test(value);
+            }, 'Please set a valid username');
+            $('#addAccount').validate({
+                rules: {
+                    email: {
+                        required: true,
+                        email: true,
+                    },
+                    username: {
+                        required: true,
+                        minlength: 4,
+                        alphanumeric: "#username"
+                    },
+                    role: "required",
+                    password: {
+                        required: true,
+                        minlength: 8
+                    },
+                    rpassword: {
+                        required: true,
+                        NotEqualTo: "#password"
+                    }
+                },
+                messages: {
+                    email: {
+                        required: "Please enter email address",
+                        email: "Please enter a vaild email address"
+                    },
+                    username: {
+                        required: "Please enter username",
+                        minlength: "Username must be at least 4 characters long"
+                    },
+                    role: "Please select a role",
+                    password: {
+                        required: "Please provide a password",
+                        minlength: "Password must be at least 8 characters long"
+                    },
+                    rpassword: {
+                        required: "Please reenter password"
+                    }
+                },
+                errorElement: 'span',
+                errorPlacement: function(error, element) {
+                    error.addClass('invalid-feedback');
+                    element.closest('.form-group').append(error);
+                },
+                highlight: function(element, errorClass, validClass) {
+                    $(element).addClass('is-invalid');
+                },
+                unhighlight: function(element, errorClass, validClass) {
+                    $(element).removeClass('is-invalid');
+                }
+            });
+            $("#example1").DataTable({
+                "responsive": true,
+                "lengthChange": true,
+                "autoWidth": false,
+                "columnDefs": [
+                    {
+                        "targets": [ 3 ],
+                        "visible": false
+                    },
+                    {
+                        "targets": [ 4 ],
+                        "visible": false
+                    },
+                    {
+                        "targets": [ 5 ],
+                        "orderable": false
+                    },
+                    {
+                        "targets": [ 6 ],
+                        "orderable": false
+                    }
+                ],
+                "buttons": ["copy", "csv", "excel", "pdf", "print", {
+                    extend: 'colvis',
+                    columns: ':eq(0),:eq(1),:eq(2),:eq(3),:eq(4)'
+                }]
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+            var msg = '{{msg}}';
+            if(msg != ''){
+                toastr.options = {
+                    "positionClass": "toast-bottom-right"
+                };
+                switch(msg){
+                    case 'Account created successfully' :
+                        toastr.success(msg);
+                        break;
+                    case 'Account deleted successfully' :
+                        toastr.success(msg);
+                        break;
+                    default :
+                        toastr.error(msg);
+                }
+            }
+            window.history.pushState(200, '{{title}}', '/accounts');
+        });
+    </script>
+{% endblock %}

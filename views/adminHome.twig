@@ -1,0 +1,38 @@
+{% extends 'layout.twig' %}
+
+{% block sidebar %}
+    <li class="nav-item">
+        <a href="/" class="nav-link active">
+            <i class="nav-icon fas fa-home"></i>
+            <p>Home</p>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a href="/accounts" class="nav-link">
+            <i class="nav-icon fas fa-user"></i>
+            <p>Accounts</p>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a href="/intents" class="nav-link">
+            <i class="nav-icon fa fa-question-circle"></i>
+            <p>Intents</p>
+        </a>
+    </li>
+{% endblock %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item active">Home</li>
+{% endblock %}
+
+{% block content %}
+{% endblock %}
+
+{% block javascripts %}
+    <!-- overlayScrollbars -->
+    <script src="/js/jquery.overlayScrollbars.min.js"></script>
+    <!-- ChartJS -->
+    <script src="/js/Chart.min.js"></script>
+    <!-- jQuery Knob -->
+    <script src="/js/jquery.knob.min.js"></script>
+{% endblock %}
