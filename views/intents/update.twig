@@ -38,15 +38,15 @@
                                 <input type="hidden" name="_id" value={{intent._id}}>
                                 <div class="form-group">
                                     <label for="tag">Tag</label>
-                                    <input type="text" required placeholder="Tag" name="tag" id="tag" class="form-control" value={{intent.tag}}>
+                                    <input type="text" required placeholder="Tag" name="tag" id="tag" class="form-control" value="{{intent.tag}}">
                                 </div>
                                 <div class="form-group">
                                     <label for="patterns">Patterns</label>
-                                    <input type="text" required placeholder="Patterns" name="patterns" id="patterns" class="form-control">
+                                    <input type="text" required placeholder="Patterns" name="patterns" id="patterns" class="form-control" value="{{patterns}}">
                                 </div>
                                 <div class="form-group">
                                     <label for="responses">Responses</label>
-                                    <input type="text" required placeholder="Responses" name="responses" id="responses" class="form-control">
+                                    <input type="text" required placeholder="Responses" name="responses" id="responses" class="form-control" value="{{responses}}">
                                 </div>
                                 <div class="form-group">
                                     <button type="submit" class="btn btn-primary" title="update intent">Save</button>
@@ -77,15 +77,15 @@
                 rules: {
                     tag: {
                         required: true,
-                        registration: "#tag"
+                        tag: "#tag"
                     },
                     patterns: {
                         required: true,
-                        firstname: "#patterns"
+                        patterns: "#patterns"
                     },
                     responses: {
                         required: true,
-                        lastname: "#responses"
+                        responses: "#responses"
                     }
                 },
                 messages: {
@@ -111,6 +111,18 @@
                     $(element).removeClass('is-invalid');
                 }
             });
+            var msg = '{{msg}}';
+            if(msg != ''){
+                toastr.options = {
+                    "positionClass": "toast-bottom-right"
+                };
+                switch(msg){
+                    case 'Tag already used' :
+                        toastr.error(msg);
+                        break;
+                }
+            }
+            window.history.pushState(200, '{{title}}', '/intents');
         });
     </script>
 {% endblock %}
