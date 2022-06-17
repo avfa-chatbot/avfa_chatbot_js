@@ -75,29 +75,14 @@
         $(function() {
             $('#updateIntent').validate({
                 rules: {
-                    tag: {
-                        required: true,
-                        tag: "#tag"
-                    },
-                    patterns: {
-                        required: true,
-                        patterns: "#patterns"
-                    },
-                    responses: {
-                        required: true,
-                        responses: "#responses"
-                    }
+                    tag: "required",
+                    patterns: "required",
+                    responses: "required"
                 },
                 messages: {
-                    tag: {
-                        required: "Please enter intent's tag"
-                    },
-                    patterns: {
-                        required: "Please enter intent's patterns"
-                    },
-                    responses: {
-                        required: "Please enter intent's responses"
-                    }
+                    tag: "Please enter intent's tag",
+                    patterns: "Please enter intent's patterns",
+                    responses: "Please enter intent's responses"
                 },
                 errorElement: 'span',
                 errorPlacement: function(error, element) {

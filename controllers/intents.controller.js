@@ -28,10 +28,24 @@ var self = module.exports = {
             responses = responses.substring(0, responses.length -1);
         }
 
-        const arrayPatterns = patterns.split(";");
-        //console.log(patterns)
-        //console.log(arrayPatterns)
-        const arrayResponses = responses.split(";");
+        let arrayPatterns = [];
+        let arrayResponses = [];
+
+        let i = 0;
+        patterns.split(";").forEach(element => {
+            if(element != "" && element.replace(/\s/g, '') != ""){
+                arrayPatterns[i] = element;
+                i++;
+            }
+        });
+
+        let j = 0;
+        responses.split(";").forEach(element => {
+            if(element != "" && element.replace(/\s/g, '') != ""){
+                arrayResponses[j] = element;
+                j++;
+            }
+        });
         
         if(patterns != "" && responses != ""){
             const intent = new Intent({
@@ -94,8 +108,24 @@ var self = module.exports = {
             responses = responses.substring(0, responses.length -1);
         }
         
-        const arrayPatterns = patterns.split(";");
-        const arrayResponses = responses.split(";");
+        let arrayPatterns = [];
+        let arrayResponses = [];
+
+        let i = 0;
+        patterns.split(";").forEach(element => {
+            if(element != "" && element.replace(/\s/g, '') != ""){
+                arrayPatterns[i] = element;
+                i++;
+            }
+        });
+
+        let j = 0;
+        responses.split(";").forEach(element => {
+            if(element != "" && element.replace(/\s/g, '') != ""){
+                arrayResponses[j] = element;
+                j++;
+            }
+        });
         
         if(patterns != "" && responses != ""){
             await Intent.updateOne({ _id: _id }, { tag: tag, patterns: arrayPatterns, responses: arrayResponses, context_set: context_set });
