@@ -1,8 +1,8 @@
 .DS_Store
 
 #python
-__pycache__/
-data.pth
+python/__pycache__/
+*.pth
 
 # Logs
 logs
