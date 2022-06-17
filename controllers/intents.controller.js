@@ -1,6 +1,6 @@
 const { response } = require('express');
 const { Intent } = require('../models/intent.model');
-const { exec } = require("child_process");
+const script = require('../services/script.service')
 
 var self = module.exports = {
     getAllView: async(req, res) => {
@@ -58,17 +58,7 @@ var self = module.exports = {
             
             await intent.save();
 
-            exec("python3 train.py", (error, stdout, stderr) => {
-                if (error) {
-                    console.log(`error: ${error.message}`);
-                    return;
-                }
-                if (stderr) {
-                    console.log(`stderr: ${stderr}`);
-                    return;
-                }
-                console.log(`stdout: ${stdout}`);
-            });
+            await script.run_train();
 
             res.redirect('/intents?msg=Intent created successfully');
         }else{
@@ -87,6 +77,9 @@ var self = module.exports = {
             return res.status(400).json({ error: "Intent Not Found" + _id });
         }
         await Intent.deleteOne({ _id: _id });
+
+        await script.run_train();
+
         res.redirect('/intents?msg=Intent deleted successfully');
     },
     showUpdate: async(req, res) => {
@@ -144,6 +137,9 @@ var self = module.exports = {
         
         if(patterns != "" && responses != ""){
             await Intent.updateOne({ _id: _id }, { tag: tag, patterns: arrayPatterns, responses: arrayResponses, context_set: context_set });
+            
+            await script.run_train();
+            
             res.redirect('/intents?msg=Intent updated successfully');
         }else{
             res.redirect('/intents?msg=Update fault : Patterns or responses are empty');

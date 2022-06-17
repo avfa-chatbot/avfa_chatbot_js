@@ -47,36 +47,36 @@ class Chatbox {
 
         let msg1 = { name: "User", message: text1 }
         this.messages.push(msg1);
-//'http://127.0.0.1:5000/predict',
+        //'http://127.0.0.1:5000/predict',
 
-var myHeaders = new Headers();
-myHeaders.append("Content-Type", "application/json");
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
 
-var raw = JSON.stringify({message: text1});
+        var raw = JSON.stringify({message: text1});
 
-var requestOptions = {
-  method: 'POST',
-  headers: myHeaders,
-  body: raw,
-  redirect: 'follow'
-};
+        var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow'
+        };
 
-fetch("http://localhost:5000/predict", requestOptions)
-  .then(r => r.text())
-  .then(r =>  {
-        const resp = JSON.parse(r);
-        let msg2 = { name: "Sam", message: resp.answer };
-        console.log(resp.answer)
-        this.messages.push(msg2);
-        this.updateChatText(chatbox)
-        textField.value = '' 
-    })
-  .catch((error) => {
-      console.error('error', error);
-      this.updateChatText(chatbox)
-      textField.value = '' 
-    })  
-}
+        fetch("http://localhost:5000/predict", requestOptions)
+        .then(r => r.text())
+        .then(r =>  {
+                const resp = JSON.parse(r);
+                let msg2 = { name: "Sam", message: resp.answer };
+                console.log(resp.answer)
+                this.messages.push(msg2);
+                this.updateChatText(chatbox)
+                textField.value = '' 
+            })
+        .catch((error) => {
+            console.error('error', error);
+            this.updateChatText(chatbox)
+            textField.value = '' 
+        })
+    }
 
     updateChatText(chatbox) {
         var html = '';
