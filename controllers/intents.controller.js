@@ -1,3 +1,4 @@
+const { response } = require('express');
 const { Intent } = require('../models/intent.model');
 
 var self = module.exports = {
@@ -11,25 +12,39 @@ var self = module.exports = {
         res.json({intents : intents});
     },
     create: async(req, res) => {
-        const { tag, patterns, responses } = req.body;
+        let { tag, patterns, responses } = req.body;
         const context_set = "";
         //console.log("console : " +tag +" , "+ patterns+" , "+ responses);
         const intentExist = await Intent.findOne({ tag: tag });
         if (intentExist) {
             return res.redirect('/intents?msg=Tag already used');
         }
+
+        while(patterns.charAt(patterns.length - 1) == ";" || patterns.charAt(patterns.length - 1) == " "){
+            patterns = patterns.substring(0, patterns.length -1);
+        }
+        
+        while(responses.charAt(responses.length - 1) == ";" || responses.charAt(responses.length - 1) == " "){
+            responses = responses.substring(0, responses.length -1);
+        }
+
         const arrayPatterns = patterns.split(";");
         //console.log(patterns)
         //console.log(arrayPatterns)
         const arrayResponses = responses.split(";");
-        const intent = new Intent({
-            tag,
-            patterns : arrayPatterns,
-            responses : arrayResponses,
-            context_set
-        });
-        await intent.save();
-        res.redirect('/intents?msg=Intent created successfully');
+        
+        if(patterns != "" && responses != ""){
+            const intent = new Intent({
+                tag,
+                patterns : arrayPatterns,
+                responses : arrayResponses,
+                context_set
+            });
+            await intent.save();
+            res.redirect('/intents?msg=Intent created successfully');
+        }else{
+            res.redirect('/intents?msg=Creation fault : Patterns or responses are empty');
+        }
     },
     getOneById: async(req, res) => {
         const { _id } = req.query;
@@ -51,28 +66,43 @@ var self = module.exports = {
         let intent = await Intent.findOne({ _id: _id });
         let patterns = "";
         let responses = "";
+        
         intent.patterns.forEach(pattern => {
             patterns += pattern + ";";
         });
         intent.responses.forEach(response => {
             responses += response + ";";
         });
-        patterns = patterns.substring(0, patterns.length -1);
-        responses = responses.substring(0, responses.length -1);
+        
         res.render('intents/update', { intent, patterns, responses, title: "Update Intent", account_id: req.session._id, username: req.session.username, msg });
     },
     update: async(req, res) => {
         let { _id, tag, patterns, responses, context_set } = req.body;
         const intentExist = await Intent.findOne({ tag: tag });
+        
         if (intentExist) {
             if (intentExist._id != _id) {
                 return res.redirect('/intents?msg=Tag already used');
             }
         }
+
+        while(patterns.charAt(patterns.length - 1) == ";" || patterns.charAt(patterns.length - 1) == " "){
+            patterns = patterns.substring(0, patterns.length -1);
+        }
+        
+        while(responses.charAt(responses.length - 1) == ";" || responses.charAt(responses.length - 1) == " "){
+            responses = responses.substring(0, responses.length -1);
+        }
+        
         const arrayPatterns = patterns.split(";");
         const arrayResponses = responses.split(";");
         
-        await Intent.updateOne({ _id: _id }, { tag: tag, patterns: arrayPatterns, responses: arrayResponses, context_set: context_set });
-        res.redirect('/intents?msg=Intents updated successfully');
+        if(patterns != "" && responses != ""){
+            await Intent.updateOne({ _id: _id }, { tag: tag, patterns: arrayPatterns, responses: arrayResponses, context_set: context_set });
+            res.redirect('/intents?msg=Intent updated successfully');
+        }else{
+            res.redirect('/intents?msg=Update fault : Patterns or responses are empty');
+        }
+        
     }
 }

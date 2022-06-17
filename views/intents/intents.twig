@@ -220,17 +220,17 @@
                     "positionClass": "toast-bottom-right"
                 };
                 switch(msg){
-                    case 'Intent created successfully' :
-                        toastr.success(msg);
+                    case 'Creation fault : Patterns or responses are empty' :
+                        toastr.warning(msg);
                         break;
-                    case 'Intent deleted successfully' :
-                        toastr.success(msg);
-                        break;
-                    case 'Intent updated successfully' :
-                        toastr.success(msg);
+                    case 'Update fault : Patterns or responses are empty' :
+                        toastr.warning(msg);
                         break;
                     case 'Tag already used' :
                         toastr.error(msg);
+                        break;
+                    default:
+                        toastr.success(msg);
                         break;
                 }
             }
