@@ -1,5 +1,6 @@
 const { response } = require('express');
 const { Intent } = require('../models/intent.model');
+const { exec } = require("child_process");
 
 var self = module.exports = {
     getAllView: async(req, res) => {
@@ -54,7 +55,21 @@ var self = module.exports = {
                 responses : arrayResponses,
                 context_set
             });
+            
             await intent.save();
+
+            await exec("python3 train/train.py", (error, stdout, stderr) => {
+                if (error) {
+                    console.log(`error: ${error.message}`);
+                    return;
+                }
+                if (stderr) {
+                    console.log(`stderr: ${stderr}`);
+                    return;
+                }
+                console.log(`stdout: ${stdout}`);
+            });
+
             res.redirect('/intents?msg=Intent created successfully');
         }else{
             res.redirect('/intents?msg=Creation fault : Patterns or responses are empty');
