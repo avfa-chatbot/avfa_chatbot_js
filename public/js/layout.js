@@ -10,7 +10,6 @@
     var smallSidebar = localStorage.getItem('smallSidebar');
     var smallFooter = localStorage.getItem('smallFooter');
     var sidebarCollapse = localStorage.getItem('sidebarCollapse');
-    var realTimeWarnings = localStorage.getItem('realTimeWarnings');
 
     if (dark == "true") {
         $('body').addClass('dark-mode')
@@ -135,25 +134,6 @@
     })
     var $dark_mode_container = $('<div />', { class: 'mb-4' }).append($dark_mode_checkbox).append('<span>Dark Mode</span>')
     $container.append($dark_mode_container)
-
-    $container.append('<h6>Real Time Warnings</h6>')
-    var $real_time_warnings_checkbox = $('<input />', {
-        type: 'checkbox',
-        value: 1,
-        checked: realTimeWarnings == 'true',
-        class: 'mr-1'
-    }).on('click', function() {
-        if ($(this).is(':checked')) {
-            localStorage.setItem('realTimeWarnings', true);
-            toastr.info("Real Time Warnings Are Enabled");
-        } else {
-            localStorage.setItem('realTimeWarnings', false);
-            toastr.info("Real Time Warnings Are Disabled");
-        }
-        $("#control-sidebar-btn").click();
-    })
-    var $real_time_warnings_container = $('<div />', { class: 'mb-4' }).append($real_time_warnings_checkbox).append('<span>Enable</span>')
-    $container.append($real_time_warnings_container)
 
     $container.append('<h6>Header Options</h6>')
     var $header_fixed_checkbox = $('<input />', {
@@ -317,43 +297,5 @@
         $("#smallSidebar").attr("disabled", false);
         $("#smallFooter").attr("disabled", false);
     }
-
-    //socket
-
-    var socket = io.connect();
-    socket.on("connect", function() {
-        socket.on('setGadgetEnabled', function(data) {
-            realTimeWarnings = localStorage.getItem('realTimeWarnings');
-            if (realTimeWarnings == 'true') {
-                if (data.enabled == 'true') {
-                    toastr.info("Gadget with mac address '" + data.mac + "' is enabled");
-                } else {
-                    toastr.warning("Gadget with mac address '" + data.mac + "' is disabled");
-                }
-            }
-        });
-        socket.on('createWarning', function(data) {
-            realTimeWarnings = localStorage.getItem('realTimeWarnings');
-            if (realTimeWarnings == 'true') {
-                let msg1 = "";
-                if (data.gadget1.type == 0) {
-                    msg1 = "employee '" + data.gadget1.employee.firstName + " " + data.gadget1.employee.lastName + "'"
-                } else if (data.gadget1.type == 1) {
-                    msg1 = "hazardous object '" + data.gadget1.hazardousObject.label + "'"
-                } else {
-                    msg1 = "hazardous area '" + data.gadget1.hazardousArea.label + "'"
-                }
-                let msg2 = "";
-                if (data.gadget2.type == 0) {
-                    msg2 = "employee '" + data.gadget2.employee.firstName + " " + data.gadget2.employee.lastName + "'"
-                } else if (data.gadget2.type == 1) {
-                    msg2 = "hazardous object '" + data.gadget2.hazardousObject.label + "'"
-                } else {
-                    msg2 = "hazardous area '" + data.gadget2.hazardousArea.label + "'"
-                }
-                toastr.error("Collision between " + msg1 + " and " + msg2 + " is detected !");
-            }
-        });
-    });
 
 })(jQuery)
