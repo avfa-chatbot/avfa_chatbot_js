@@ -58,7 +58,7 @@ var self = module.exports = {
             
             await intent.save();
 
-            await exec("python3 train/train.py", (error, stdout, stderr) => {
+            exec("python3 train.py", (error, stdout, stderr) => {
                 if (error) {
                     console.log(`error: ${error.message}`);
                     return;

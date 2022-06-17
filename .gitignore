@@ -1,6 +1,8 @@
 .DS_Store
 
-train/__pycache__/
+#python
+__pycache__/
+data.pth
 
 # Logs
 logs
