@@ -6,9 +6,9 @@ var session = require('express-session');
 var logger = require('morgan');
 var mongoose = require('mongoose');
 
-var indexRouter = require('./routes/index');
-var accountsRouter = require('./routes/accounts');
-var intentsRouter = require('./routes/intents');
+var indexRouter = require('./routes/routes.index');
+var accountsRouter = require('./routes/routes.accounts');
+var intentsRouter = require('./routes/routes.intents');
 
 var appParams = require('./appParams');
 
