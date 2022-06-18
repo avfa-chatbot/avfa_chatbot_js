@@ -73,8 +73,8 @@ var self = module.exports = {
     delete: async(req, res) => {
         const { _id } = req.params;
 
-        const oneIntent = await Intent.findOne();
-        if (!oneIntent) {
+        const oneIntent = await Intent.find();
+        if (oneIntent.length == 1) {
             return res.redirect('/intents?msg=You can not delete intent if there is only one');
         }
 
