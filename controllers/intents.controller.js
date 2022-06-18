@@ -1,6 +1,6 @@
 const { response } = require('express');
 const { Intent } = require('../models/intent.model');
-const script = require('../services/script.service')
+const script = require('../services/script.service');
 
 var self = module.exports = {
     getAllView: async(req, res) => {
@@ -79,7 +79,7 @@ var self = module.exports = {
         await Intent.deleteOne({ _id: _id });
 
         await script.run_train();
-
+        
         res.redirect('/intents?msg=Intent deleted successfully');
     },
     showUpdate: async(req, res) => {
