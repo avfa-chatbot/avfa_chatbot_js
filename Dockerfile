@@ -6,7 +6,7 @@ COPY . .
 
 RUN npm install
 
-#RUN pip install -r python/requirements.txt
+RUN pip install -r python/requirements.txt
 
 EXPOSE 3000 5000
 
