@@ -229,6 +229,9 @@
                     case 'Tag already used' :
                         toastr.error(msg);
                         break;
+                    case 'You can not delete intent if there is only one' :
+                        toastr.error(msg);
+                        break;
                     default:
                         toastr.success(msg);
                         break;
