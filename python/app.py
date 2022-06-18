@@ -56,7 +56,7 @@ def start_flaskapp(queue):
 if __name__ =='__main__':
 	q = Queue()
 	p = Process(target=start_flaskapp, args=[q,])
-	p.start()
+	p.start(host='0.0.0.0')
 	while True: #wathing queue, if there is no call than sleep, otherwise break
 		if q.empty(): 
 			time.sleep(1)
