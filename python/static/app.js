@@ -61,7 +61,7 @@ class Chatbox {
         redirect: 'follow'
         };
 
-        fetch("http://0.0.0.0:5000/predict", requestOptions)
+        fetch("http://vps-f7d0ecab.vps.ovh.net:5000/predict", requestOptions)
         .then(r => r.text())
         .then(r =>  {
                 const resp = JSON.parse(r);
