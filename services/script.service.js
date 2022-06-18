@@ -13,20 +13,6 @@ module.exports = {
             console.error(error);
         });
     },
-    run_py: async() => {
-        exec("python3 python/app.py", (error, stdout, stderr) => {
-            module.exports.run_train();
-            if (error) {
-                console.log(`error: ${error.message}`);
-                return;
-            }
-            if (stderr) {
-                console.log(`stderr: ${stderr}`);
-                return;
-            }
-            console.log(`stdout: ${stdout}`);
-        });
-    },
     run_train: async() => {
         exec("python3 python/train.py", (error, stdout, stderr) => {
             if (error) {
@@ -39,6 +25,19 @@ module.exports = {
             }
             console.log(`stdout: ${stdout}`);
             module.exports.reboot_py();
+        });
+    },
+    run_py: async() => {
+        exec("python3 python/app.py", (error, stdout, stderr) => {
+            if (error) {
+                console.log(`error: ${error.message}`);
+                return;
+            }
+            if (stderr) {
+                console.log(`stderr: ${stderr}`);
+                return;
+            }
+            console.log(`stdout: ${stdout}`);
         });
     }
 }
