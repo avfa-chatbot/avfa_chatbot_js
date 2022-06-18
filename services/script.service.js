@@ -1,5 +1,5 @@
 const { exec } = require("child_process");
-var appParams = require("./appParams");
+var appParams = require("../appParams");
 
 module.exports = {
     reboot_py: async () => {
