@@ -4,7 +4,7 @@ module.exports = {
     reboot_py: async () => {
         const axios = require('axios');
 
-        axios.get('http://localhost:5000/restart')
+        axios.get('http://'+appParams.host+':5000/restart')
         .then(res => {
             console.log(`statusCode: ${res.status}`);
             console.log(res);

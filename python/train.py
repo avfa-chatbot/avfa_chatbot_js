@@ -12,10 +12,12 @@ from torch.utils.data import Dataset, DataLoader
 from nltk_utils import bag_of_words, tokenize, stem
 from model import NeuralNet
 
+from appParams import host
+
 #with open('intents.json', 'r') as f:
     #intents = json.load(f)
 
-url = "http://0.0.0.0:3000/intents/getAll"
+url = "http://"+host+":3000/intents/getAll"
 json_url = urlopen(url)
 intents = json.loads(json_url.read())
 

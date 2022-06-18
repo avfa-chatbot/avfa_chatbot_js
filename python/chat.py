@@ -8,12 +8,14 @@ import torch
 from model import NeuralNet
 from nltk_utils import bag_of_words, tokenize
 
+from appParams import host
+
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 #with open('intents.json', 'r') as json_data:
 #    intents = json.load(json_data)
 
-url = "http://localhost:3000/intents/getAll"
+url = "http://"+host+":3000/intents/getAll"
 json_url = urlopen(url)
 intents = json.loads(json_url.read())
 
