@@ -50,13 +50,13 @@ def restart():
 def start_flaskapp(queue):
 	global some_queue
 	some_queue = queue
-	app.run()
+	app.run(host='0.0.0.0')
 
 
 if __name__ =='__main__':
 	q = Queue()
 	p = Process(target=start_flaskapp, args=[q,])
-	p.start(host='0.0.0.0')
+	p.start()
 	while True: #wathing queue, if there is no call than sleep, otherwise break
 		if q.empty(): 
 			time.sleep(1)
