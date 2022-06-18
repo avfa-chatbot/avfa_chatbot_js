@@ -1,7 +1,7 @@
 var express = require('express');
 
 var accountsController = require('../controllers/accounts.controller');
-var sessions = require('../middlewares/sessions');
+var sessions = require('../middlewares/middlewares.sessions');
 
 var router = express.Router();
 

@@ -1,7 +1,8 @@
 var express = require('express');
 
 var accountsController = require('../controllers/accounts.controller');
-var sessions = require('../middlewares/sessions');
+var sessions = require('../middlewares/middlewares.sessions');
+var intents = require('../middlewares/middlewares.intents');
 
 var router = express.Router();
 
@@ -11,7 +12,7 @@ var router = express.Router();
 
 router.route('/login')
     .get(sessions.showLogin, accountsController.showLogin)
-    .post(sessions.adminExists, accountsController.login);
+    .post(sessions.adminExists, intents.intentExists, accountsController.login);
 
 router.route('/logout')
     .get(accountsController.logout)

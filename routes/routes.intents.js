@@ -1,7 +1,7 @@
 var express = require('express');
 
 var intentsController = require('../controllers/intents.controller');
-var sessions = require('../middlewares/sessions');
+var sessions = require('../middlewares/middlewares.sessions');
 
 var router = express.Router();
 
