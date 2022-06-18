@@ -4,6 +4,10 @@ WORKDIR /usr/chatbot_avfa
 
 COPY . .
 
+RUN apt-get update
+
+RUN apt-get upgrade -y
+
 RUN npm install
 
 RUN pip install -r python/requirements.txt
