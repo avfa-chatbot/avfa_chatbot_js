@@ -26,8 +26,8 @@ services:
         environment:
             - ME_CONFIG_MONGODB_PORT=27018
         ports: 
-            - "3000:3000"
             - "5000:5000"
+            - "3000:3000"
         restart: always
         volumes: 
             - chatbot-avfa-volume:/usr/chatbot_avfa/public/resources
