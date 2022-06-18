@@ -4,7 +4,7 @@ services:
     mongo:
         image: mongo
         ports:
-            - "27017:27017"
+            - "27017:27018"
         restart: always
         volumes: 
             - mongodb-volume:/data/db
@@ -14,6 +14,8 @@ services:
         depends_on:
             - mongo
         restart: always
+        environment:
+            - ME_CONFIG_MONGODB_PORT=27018
         ports:
             - "8081:8081" 
 

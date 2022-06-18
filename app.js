@@ -19,24 +19,24 @@ const script = require('./services/script.service')
 // mongodb connection
 var mongoConnected = false;
 mongoConnect = async() => {
-  await mongoose.connect(appParams.mongodb_url, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true })
-      .then((data) => {
-          mongoConnected = true;
-          console.log("mongodb connected to localhost !");
-      }).catch((err) => {
-          console.log(err)
-          console.log("trying mongodb_url_docker ...");
-      })
+    await mongoose.connect(appParams.mongodb_url, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true })
+        .then((data) => {
+            mongoConnected = true;
+            console.log("mongodb connected to localhost !");
+        }).catch((err) => {
+            console.log(err)
+            console.log("trying mongodb_url_docker ...");
+        })
 
-  if (!mongoConnected) {
-      await mongoose.connect(appParams.mongodb_url_docker, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true })
-          .then((data) => {
-              mongoConnected = true;
-              console.log("mongodb connected to mongo docker container !");
-          }).catch((err) => {
-              console.log(err)
-          })
-  }
+    if (!mongoConnected) {
+        await mongoose.connect(appParams.mongodb_url_docker, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true })
+            .then((data) => {
+                mongoConnected = true;
+                console.log("mongodb connected to mongo docker container !");
+            }).catch((err) => {
+                console.log(err)
+            })
+    }
 }
 mongoConnect();
 
