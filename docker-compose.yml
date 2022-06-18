@@ -17,18 +17,18 @@ services:
         ports:
             - "8081:8081" 
 
-    chatbot_avfa:
-        build:
-            context: .
-            dockerfile: Dockerfile
-        depends_on: 
-            - mongo
-        ports: 
-            - "3000:3000"
-            - "5000:5000"
-        restart: always
-        volumes: 
-            - chatbot-avfa-volume:/usr/chatbot_avfa/public/resources
+    #chatbot_avfa:
+    #    build:
+    #        context: .
+    #        dockerfile: Dockerfile
+    #    depends_on: 
+    #        - mongo
+    #    ports: 
+    #        - "3000:3000"
+    #        - "5000:5000"
+    #    restart: always
+    #    volumes: 
+    #        - chatbot-avfa-volume:/usr/chatbot_avfa/public/resources
 
 volumes: 
     mongodb-volume:
