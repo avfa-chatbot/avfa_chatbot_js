@@ -15,7 +15,7 @@ from model import NeuralNet
 #with open('intents.json', 'r') as f:
     #intents = json.load(f)
 
-url = "http://localhost:3000/intents/getAll"
+url = "http://0.0.0.0:3000/intents/getAll"
 json_url = urlopen(url)
 intents = json.loads(json_url.read())
 
