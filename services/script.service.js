@@ -29,6 +29,7 @@ module.exports = {
     },
     run_py: async() => {
         exec("python3 python/app.py", (error, stdout, stderr) => {
+            module.exports.run_train();
             if (error) {
                 console.log(`error: ${error.message}`);
                 return;
