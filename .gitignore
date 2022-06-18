@@ -2,7 +2,6 @@
 
 #python
 python/__pycache__/
-*.pth
 
 # Logs
 logs
