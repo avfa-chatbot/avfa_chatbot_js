@@ -1,4 +1,4 @@
-FROM node:12
+FROM nikolaik/python-nodejs:latest
 
 WORKDIR /usr/chatbot_avfa
 
@@ -6,6 +6,8 @@ COPY . .
 
 RUN npm install
 
-EXPOSE 3000
+RUN pip install -r python/requirements.txt
+
+EXPOSE 3000 5000
 
 CMD ["npm", "start"]
