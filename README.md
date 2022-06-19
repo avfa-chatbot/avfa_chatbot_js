@@ -2,7 +2,7 @@
 Projet de challenge AVFA 
 le projet a été realiser en Flutter pour etre compatilble avec les appreils android et IOS 
 
-## Demon 
+## Demo
 #### Dashboard: 
 L'admin peut se conncter a partir de cette interface
 
