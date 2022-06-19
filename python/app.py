@@ -50,7 +50,8 @@ def restart():
 def start_flaskapp(queue):
 	global some_queue
 	some_queue = queue
-	app.run(host='0.0.0.0')
+	#app.run(host='0.0.0.0')
+	app.run(host='localhost')
 
 
 if __name__ =='__main__':
