@@ -23,6 +23,14 @@ L'utilisateur peut envoyer des messages sur le site web
 <img src="https://drive.google.com/file/d/1NP3iCpnlZsVIJ5eYMovS57tdV1NkyRbk/view?usp=sharing"  title="chatbot">
 
 
+pour Forcer l'activitation de votre micro et ignorer la politique d'origine sécurisée de Chrome, procédez comme suit:
+
+1- Accédez à `chrome://flags/#unsafely-treat-insecure-origin-as-secure` dans Chrome.
+2- Recherchez et activez la section "Origines non sécurisées traitées comme sécurisées"
+3- Ajoutez toutes les adresses pour lesquelles vous souhaitez ignorer la politique d'origine sécurisée. N'oubliez pas d'inclure également le numéro de port (si nécessaire).
+4- Enregistrez et redémarrez Chrome
+
+
 
 ## Executer le projet
 
