@@ -50,7 +50,7 @@ http://vps-f7d0ecab.vps.ovh.net:3000/   Dashboard Web s'execute sur le port 3000
 
 http://vps-f7d0ecab.vps.ovh.net:5000/   Site Web s'execute sur le port 5000
 
-## Documentations: 
-Pour plus details vou pouvez consulter le lien de la documentation et guide d'utilisation de l'application 
+## Documentation: 
+Pour plus de details vous pouvez consulter le lien de la documentation et le guide d'utilisation de l'application 
 
 https://drive.google.com/file/d/1AtLcVtb9rjTjJwavLsQ2V-HeFW_vN3x-/view?usp=sharing
