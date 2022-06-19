@@ -7,10 +7,10 @@ le projet a été realiser en Flutter pour etre compatilble avec les appreils an
 L'admin peut se conncter a partir de cette interface
 
 
-<img src="https://drive.google.com/file/d/1z_zBRw1oQURSIg8mEXhxwXDqbPk8ewfq/view" title="Dashboard Login">
+<img src="https://drive.google.com/uc?export=view&id=1z_zBRw1oQURSIg8mEXhxwXDqbPk8ewfq" title="Dashboard Login">
 
 
-<img src="https://drive.google.com/file/d/18tmcewdp2xKmnYDH8j_REm8rWPF0EJaX/view" title="Dashboard Login">
+<img src="https://drive.google.com/uc?export=view&id=18tmcewdp2xKmnYDH8j_REm8rWPF0EJaX" title="Dashboard Login">
 
 
 <img src="https://drive.google.com/uc?export=view&id=1cPdXTWIddSuqPgzYLpqFc6AWS47Q2rGG" title="Dashboard Login">
@@ -20,7 +20,7 @@ L'admin peut se conncter a partir de cette interface
 #### Web  : 
 L'utilisateur peut envoyer des messages sur le site web  
 
-<img src="https://drive.google.com/file/d/1NP3iCpnlZsVIJ5eYMovS57tdV1NkyRbk/view?usp=sharing"  title="chatbot">
+<img src="https://drive.google.com/uc?export=view&id=1NP3iCpnlZsVIJ5eYMovS57tdV1NkyRbk"  title="chatbot">
 
 ## Activer Micro
 Pour forcer l'activitation de votre micro et ignorer la politique d'origine sécurisée de Chrome, procédez comme suit:
