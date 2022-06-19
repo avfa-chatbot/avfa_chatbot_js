@@ -26,15 +26,18 @@ L'utilisateur peut envoyer des messages sur le site web
 Pour forcer l'activitation de votre micro et ignorer la politique d'origine sécurisée de Chrome, procédez comme suit:
 
 1- Accédez à `chrome://flags/#unsafely-treat-insecure-origin-as-secure` dans Chrome.
+
 2- Recherchez et activez la section "Origines non sécurisées traitées comme sécurisées"
+
 3- Ajoutez toutes les adresses pour lesquelles vous souhaitez ignorer la politique d'origine sécurisée. N'oubliez pas d'inclure également le numéro de port (si nécessaire).
+
 4- Enregistrez et redémarrez Chrome
 
 
 
 ## Executer le projet
 
-Pour executer le projet vous deve etre sous la racine ou se trouve le fichie docker-compose.yaml 
+Pour executer le projet vous devez etre sous la racine ou se trouve le fichier docker-compose.yaml 
 Ouvrir terminal et executer la commande
 ```
 docker-compose up --build -d 
