@@ -4,7 +4,8 @@ class Chatbox {
         this.args = {
             openButton: document.querySelector('.chatbox__button'),
             chatBox: document.querySelector('.chatbox__support'),
-            sendButton: document.querySelector('.send__button')
+            sendButton: document.querySelector('.send__button'),
+            dictButton: document.querySelector('.dict__button')
         }
 
         this.state = false;
@@ -12,7 +13,7 @@ class Chatbox {
     }
 
     display() {
-        const {openButton, chatBox, sendButton} = this.args;
+        const {openButton, chatBox, sendButton, dictButton} = this.args;
 
         openButton.addEventListener('click', () => this.toggleState(chatBox))
 
@@ -61,8 +62,8 @@ class Chatbox {
         redirect: 'follow'
         };
 
-        //fetch("http://vps-f7d0ecab.vps.ovh.net:5000/predict", requestOptions)
-        fetch("http://localhost:5000/predict", requestOptions)
+        fetch("http://vps-f7d0ecab.vps.ovh.net:5000/predict", requestOptions)
+        //fetch("http://localhost:5000/predict", requestOptions)
         .then(r => r.text())
         .then(r =>  {
                 const resp = JSON.parse(r);
@@ -74,8 +75,8 @@ class Chatbox {
             })
         .catch((error) => {
             console.error('error', error);
-            this.updateChatText(chatbox)
-            textField.value = '' 
+            this.updateChatText(chatbox);
+            textField.value = '' ;
         })
     }
 

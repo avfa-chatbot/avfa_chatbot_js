@@ -65,6 +65,13 @@ body {
     cursor: pointer;
 }
 
+.dict__button {
+    padding: 6px;
+    background: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
 
 /* HEADER */
 .chatbox__header {
