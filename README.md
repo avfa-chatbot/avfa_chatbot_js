@@ -13,7 +13,7 @@ L'admin peut se conncter a partir de cette interface
 <img src="https://drive.google.com/file/d/18tmcewdp2xKmnYDH8j_REm8rWPF0EJaX/view" title="Dashboard Login">
 
 
-<img src="https://drive.google.com/file/d/1cPdXTWIddSuqPgzYLpqFc6AWS47Q2rGG/view" title="Dashboard Login">
+<img src="https://drive.google.com/uc?export=view&id=1cPdXTWIddSuqPgzYLpqFc6AWS47Q2rGG/view" title="Dashboard Login">
 
 
 
