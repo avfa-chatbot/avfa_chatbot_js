@@ -18,6 +18,7 @@ import chat
 some_queue = None
 
 app = Flask(__name__)
+
 #CORS(app)
 @app.after_request
 def after_request(response):
@@ -50,8 +51,8 @@ def restart():
 def start_flaskapp(queue):
 	global some_queue
 	some_queue = queue
-	app.run(host='0.0.0.0')
-	#app.run(host='localhost')
+	#app.run(host='0.0.0.0')
+	app.run(host='localhost')
 
 
 if __name__ =='__main__':

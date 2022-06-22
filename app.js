@@ -19,7 +19,7 @@ const script = require('./services/script.service')
 // mongodb connection
 var mongoConnected = false;
 
-/*mongoConnect = async() => {
+mongoConnect = async() => {
     await mongoose.connect(appParams.mongodb_url, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true })
         .then((data) => {
             mongoConnected = true;
@@ -38,9 +38,9 @@ var mongoConnected = false;
                 console.log(err)
             })
     }
-}*/
+}
 
-mongoConnect = async() => {
+/*mongoConnect = async() => {
     await mongoose.connect(appParams.mongodb_url_docker, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true })
         .then((data) => {
             mongoConnected = true;
@@ -58,7 +58,7 @@ mongoConnect = async() => {
                 console.log(err)
             })
     }
-}
+}*/
 
 mongoConnect();
 
