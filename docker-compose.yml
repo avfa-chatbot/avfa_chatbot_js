@@ -4,8 +4,8 @@ services:
     mongo:
         image: mongo
         ports:
-            - "27018:27017"
 #            - "27018:27017"
+            - "27018:27017"
         restart: always
         volumes: 
             - mongodb-volume:/data/db
@@ -17,22 +17,22 @@ services:
         restart: always
         ports:
             - "8081:8081" 
-    #    environment:
-    #        ME_CONFIG_MONGODB_PORT: 27018
+        environment:
+            ME_CONFIG_MONGODB_PORT: 27018
         
 
-    #chatbot_avfa:
-    #    build:
-    #        context: .
-    #        dockerfile: Dockerfile
-    #    depends_on: 
-    #        - mongo
-    #    ports: 
-    #        - "5000:5000"
-    #        - "3000:3000"
-    #    restart: always
-    #    volumes: 
-    #        - chatbot-avfa-volume:/usr/chatbot_avfa/public/resources
+    chatbot_avfa:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        depends_on: 
+            - mongo
+        ports: 
+            - "5000:5000"
+            - "3000:3000"
+        restart: always
+        volumes: 
+            - chatbot-avfa-volume:/usr/chatbot_avfa/public/resources
 
 volumes: 
     mongodb-volume:
